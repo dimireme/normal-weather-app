@@ -1,0 +1,34 @@
+.header {
+  border-bottom: 1px solid var(--main-color);
+  padding: 0 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.nav {
+  display: flex;
+}
+
+.nav a {
+  padding: 16px;
+}
+
+.nav a:first-child {
+  margin-left: -16px;
+}
+
+.nav a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.nav a:hover {
+  background-color: var(--main-color);
+  color: var(--reverse-color)
+}
+
+.search {
+  width: 200px;
+}

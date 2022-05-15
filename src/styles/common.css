@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Roboto:wght@400;500&display=swap');
+
+:root {
+    --main-color: #777;
+    --reverse-color: #fff;
+}
+
+body, input {
+    color: var(--main-color);   
+    font: 16px/1.4 'Roboto', sans-serif;
+}
+
+a {
+    color: var(--main-color);
+    text-decoration: none;   
+}
+
+body,
+#root {
+    min-height: 100vh;
+}
