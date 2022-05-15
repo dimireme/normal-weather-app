@@ -7,3 +7,8 @@ export const getCurrentLocation = createSelector(
   getStore,
   (store) => store.currentLocation
 );
+
+export const getCity = createSelector(getStore, (store) => ({
+  city: store.cityName,
+  description: store.cityDescription,
+}));

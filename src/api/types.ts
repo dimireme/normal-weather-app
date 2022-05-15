@@ -28,3 +28,20 @@ export interface GetForecastResponse {
   hourly: WeatherPoint[];
   alerts?: Alert[];
 }
+
+export interface GetCityByLocationRequest {
+  location: LocationPoint;
+}
+
+export interface GetCityByLocationResponse {
+  response: {
+    GeoObjectCollection: {
+      featureMember: { GeoObject: IGeoObject }[];
+    };
+  };
+}
+
+interface IGeoObject {
+  name: string;
+  description: string;
+}

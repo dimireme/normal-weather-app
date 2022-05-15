@@ -1,0 +1,36 @@
+.container {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid var(--main-color);
+  position: relative;
+}
+
+.temperature {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.conditions {
+  margin-top: 32px;
+  font-weight: bold;
+}
+
+.addButton {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  background-color: transparent;
+  border: 2px solid var(--main-color);
+  color: var(--main-color);
+  border-radius: 50%;
+  font-size: 28px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+}
