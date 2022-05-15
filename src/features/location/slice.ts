@@ -26,13 +26,19 @@ const Slice = createSlice({
     saveCity: (state, action: PayloadAction<Omit<SavedCity, 'id'>>) => {
       const { city } = action.payload;
       if (state.savedCities.find((c) => c.city === city)) {
-        toast.error('City already at favourites');
+        toast.error('City already in favorites');
       } else {
         const newItem = { id: uuidv4(), ...action.payload };
         state.savedCities.push(newItem);
         localStorageService.addCity(newItem);
-        toast.success('City added to favourites');
+        toast.success('City added to favorites');
       }
+    },
+    removeCity: (state, action: PayloadAction<string>) => {
+      const id = action.payload;
+      state.savedCities = state.savedCities.filter((c) => c.id !== id);
+      localStorageService.removeCity(id);
+      toast.success('City removed from favorites');
     },
   },
   extraReducers: (builder) => {
@@ -45,5 +51,5 @@ const Slice = createSlice({
   },
 });
 
-export const { setLocation, saveCity } = Slice.actions;
+export const { setLocation, saveCity, removeCity } = Slice.actions;
 export default Slice.reducer;

@@ -1,0 +1,50 @@
+.container {
+  padding: 32px;
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.cityCards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.cityCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid var(--main-color);
+  width: 250px;
+  height: 150px;
+  cursor: pointer;
+  border-radius: 4px;
+  position: relative;
+}
+
+.cityTitle {
+  font-weight: bold;
+}
+
+.deleteButton {
+  opacity: 0;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: transparent;
+  color: var(--main-color);
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+  border:none;
+  padding: 0;
+  cursor: pointer;
+  transition: all .5s ease;
+}
+
+.cityCard:hover > .deleteButton {
+  opacity: 1;
+}

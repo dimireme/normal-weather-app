@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { getCurrentWeather } from 'features/weather/selectors';
 import { getCity } from 'features/location/selectors';
+import { ReactComponent as AddIcon } from './icons/AddIcon.svg';
 import styles from './WetherPreview.module.css';
 
 interface Props {
@@ -17,7 +18,7 @@ export const WetherPreview = ({ onSave }: Props) => {
         className={styles.addButton}
         onClick={() => onSave(city, description)}
       >
-        +
+        <AddIcon />
       </button>
       <span className={styles.temperature}>{temperature}</span>
       <span className={styles.city}>
