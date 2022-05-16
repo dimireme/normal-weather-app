@@ -29,7 +29,7 @@ export const useValidateSearchParams = () => {
 };
 
 // Запрос текущей геолокации через браузерное апи.
-export const useGetCurrentLocation = () => {
+export const useRequestLocationApi = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {

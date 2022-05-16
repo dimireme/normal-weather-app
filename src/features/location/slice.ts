@@ -3,12 +3,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { toast } from 'react-toastify';
 import { localStorageService } from 'features/localStorageService';
 import { LocationPoint, SavedCity } from './types';
-import { fetchCityByLocation } from './thunks';
 
 interface Store {
   currentLocation?: LocationPoint;
-  cityName?: string;
-  cityDescription?: string;
   savedCities: SavedCity[];
 }
 
@@ -40,16 +37,6 @@ const Slice = createSlice({
       localStorageService.removeCity(id);
       toast.success('City removed from favorites');
     },
-  },
-  // TODO: use yMaps HOC.
-  // TODO: Move yMaps logic to service.
-  extraReducers: (builder) => {
-    builder.addCase(fetchCityByLocation.fulfilled, (state, action) => {
-      const { name, description } =
-        action.payload.response.GeoObjectCollection.featureMember[0].GeoObject;
-      state.cityName = name;
-      state.cityDescription = description;
-    });
   },
 });
 

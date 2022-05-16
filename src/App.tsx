@@ -1,9 +1,9 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import {
   useValidateSearchParams,
-  useGetCurrentLocation,
+  useRequestLocationApi,
   useGetLocation,
   todayDate,
   tomorrowDate,
@@ -16,8 +16,6 @@ import { Week } from 'components/Week';
 import { routes } from 'routes';
 import { useAppDispatch } from 'store';
 import { fetchOneDayForecast } from 'features/weather/thunks';
-import { fetchCityByLocation } from 'features/location/thunks';
-import { saveCity } from 'features/location/slice';
 import {
   getTodayForecast,
   getTomorrowForecast,
@@ -26,7 +24,7 @@ import { useSelector } from 'react-redux';
 
 function App() {
   useValidateSearchParams();
-  useGetCurrentLocation();
+  useRequestLocationApi();
   const location = useGetLocation();
   const dispatch = useAppDispatch();
   const todayForecast = useSelector(getTodayForecast);
@@ -35,21 +33,12 @@ function App() {
   useEffect(() => {
     if (!location) return;
     dispatch(fetchOneDayForecast({ location }));
-    dispatch(fetchCityByLocation({ location }));
   }, [location, dispatch]);
-
-  // TODO: Move down
-  const handleSaveCity = useCallback(
-    (city: string, description: string) => {
-      dispatch(saveCity({ city, description, ...location! }));
-    },
-    [location, dispatch]
-  );
 
   return (
     <div>
       <Header />
-      <WetherPreview onSave={handleSaveCity} />
+      <WetherPreview />
       <Routes>
         <Route path={routes.home} element={<Home />} />
 

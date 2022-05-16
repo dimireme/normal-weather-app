@@ -1,32 +1,51 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getCurrentWeather } from 'features/weather/selectors';
-import { getCity } from 'features/location/selectors';
+import { useAppDispatch } from 'store';
+import { saveCity } from 'features/location/slice';
+import { useGetLocation } from 'helpers';
 import { ReactComponent as AddIcon } from './icons/AddIcon.svg';
 import styles from './WetherPreview.module.css';
+import { useEffect } from 'react';
+import { api } from 'api';
 
-interface Props {
-  onSave: (city: string, description: string) => void;
-}
+export const WetherPreview = () => {
+  const dispatch = useAppDispatch();
+  const location = useGetLocation();
+  const weather = useSelector(getCurrentWeather);
+  const [city, setCity] = useState('');
+  const [description, setDescription] = useState('');
 
-export const WetherPreview = ({ onSave }: Props) => {
-  const { temp, wind } = useSelector(getCurrentWeather) ?? {};
-  const { city, description } = useSelector(getCity);
+  useEffect(() => {
+    if (!location) return;
+    api
+      .getCityByLocation(location)
+      .then(({ response }) => {
+        const city = response.GeoObjectCollection.featureMember[0].GeoObject;
+        setCity(city.name);
+        setDescription(city.description);
+      })
+      .catch(() => {
+        setCity('');
+        setDescription('');
+      });
+  }, [location]);
 
   return (
     <div className={styles.container}>
-      {city && description && (
+      {location && city && description && (
         <button
           className={styles.addButton}
-          onClick={() => onSave(city, description)}
+          onClick={() => dispatch(saveCity({ city, description, ...location }))}
         >
           <AddIcon />
         </button>
       )}
-      <span className={styles.temperature}>{temp}</span>
+      <span className={styles.temperature}>{weather?.temp}</span>
       <span className={styles.city}>
         {city}, {description}
       </span>
-      <span className={styles.conditions}>{wind}</span>
+      <span className={styles.conditions}>{weather?.wind}</span>
     </div>
   );
 };

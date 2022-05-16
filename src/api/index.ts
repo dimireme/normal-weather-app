@@ -3,10 +3,10 @@ import {
   ExcludeFields,
   GetForecastRequest,
   GetForecastResponse,
-  GetCityByLocationRequest,
   GetGeocodingResponse,
   Units,
 } from './types';
+import { LocationPoint } from 'features/location/types';
 
 const WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5';
 const WEATHER_API_KEY = '6acd11387ff28a4188f6dd544127f787';
@@ -25,11 +25,19 @@ export const api = {
       .then((response) => response.data);
   },
 
-  getCityByLocation({ location }: GetCityByLocationRequest) {
+  getCityByLocation(location: LocationPoint) {
     const { latitude, longitude } = location;
     return axios
       .get<GetGeocodingResponse>(
         `${YANDEX_API_URL}?geocode=${longitude},${latitude}&apikey=${YANDEX_API_KEY}&format=json&results=1&kind=locality`
+      )
+      .then((response) => response.data);
+  },
+
+  getLocationByCity(city: string) {
+    return axios
+      .get<GetGeocodingResponse>(
+        `${YANDEX_API_URL}?geocode=${city}&apikey=${YANDEX_API_KEY}&format=json&results=1&kind=locality`
       )
       .then((response) => response.data);
   },
