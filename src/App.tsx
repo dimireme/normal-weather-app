@@ -12,10 +12,10 @@ import { WetherPreview } from 'components/WetherPreview';
 import { Home } from 'components/Home';
 import { Header } from 'components/Header';
 import { OneDayForecast } from 'components/OneDayForecast';
-import { Week } from 'components/Week';
+import { OneWeekForecast } from 'components/OneWeekForecast';
 import { routes } from 'routes';
 import { useAppDispatch } from 'store';
-import { fetchOneDayForecast } from 'features/weather/thunks';
+import { fetchForecast } from 'features/weather/thunks';
 import {
   getTodayForecast,
   getTomorrowForecast,
@@ -32,7 +32,7 @@ function App() {
 
   useEffect(() => {
     if (!location) return;
-    dispatch(fetchOneDayForecast({ location }));
+    dispatch(fetchForecast({ location }));
   }, [location, dispatch]);
 
   return (
@@ -64,7 +64,7 @@ function App() {
           }
         />
 
-        <Route path={routes.week} element={<Week />} />
+        <Route path={routes.week} element={<OneWeekForecast />} />
       </Routes>
     </div>
   );

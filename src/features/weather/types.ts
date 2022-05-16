@@ -1,15 +1,13 @@
-export interface Alert {
-  sender_name: string;
-  event: string;
-  start: number;
-  end: number;
-  description: string;
-  tags: string[];
-}
-
+// В апи не описано, но для полярных координат может не быть захода или заката, поэтому optional
 export interface SunPoint {
   sunrise?: number;
   sunset?: number;
+}
+
+export interface MoonPoint {
+  moonrise: number;
+  moonset: number;
+  moon_phase: number;
 }
 
 export interface WeatherPoint extends Fallouts {
@@ -26,6 +24,25 @@ export interface WeatherPoint extends Fallouts {
   wind_gust?: number; // deponds on units
   wind_deg: number; // Wind direction, degrees (meteorological)
   weather: WeatherConditions[];
+}
+
+export interface DailyWeatherPoint
+  extends Omit<WeatherPoint, 'temp' | 'feels_like'> {
+  temp: {
+    day: number;
+    min: number;
+    max: number;
+    night: number;
+    eve: number;
+    morn: number;
+  };
+  feels_like: {
+    day: number;
+    night: number;
+    eve: number;
+    morn: number;
+  };
+  pop: number;
 }
 
 export interface WeatherConditions {

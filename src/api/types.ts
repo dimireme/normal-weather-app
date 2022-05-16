@@ -1,4 +1,9 @@
-import { Alert, SunPoint, WeatherPoint } from 'features/weather/types';
+import {
+  MoonPoint,
+  SunPoint,
+  WeatherPoint,
+  DailyWeatherPoint,
+} from 'features/weather/types';
 import { LocationPoint } from 'features/location/types';
 
 export enum Units {
@@ -26,7 +31,7 @@ export interface GetForecastResponse {
   timezone_offset: number;
   current: WeatherPoint & SunPoint;
   hourly: WeatherPoint[];
-  alerts?: Alert[];
+  daily: (DailyWeatherPoint & SunPoint & MoonPoint)[];
 }
 
 export interface GetCityByLocationRequest {

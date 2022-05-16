@@ -6,7 +6,11 @@ import { startOfToday, startOfTomorrow } from 'date-fns';
 
 import { useAppDispatch } from 'store';
 import { setLocation } from 'features/location/slice';
-import { WeatherPoint, IHumanizedWeather } from 'features/weather/types';
+import {
+  WeatherPoint,
+  DailyWeatherPoint,
+  IHumanizedWeather,
+} from 'features/weather/types';
 import { getCurrentLocation } from 'features/location/selectors';
 
 const isValidFloat = (n: string) => /^[+-]?[0-9]+[.][0-9]+/.test(n);
@@ -70,13 +74,21 @@ export const useGetLocation = () => {
 const TIME_PATTERN = 'HH:mm';
 const DATE_PATTERN = 'MMMM, d';
 
+const round = (n: number) => ((n * 10) ^ 0) / 10;
+
 // Строковое представление температуры и ветра.
 export const humanizeWeather = (
-  weather: WeatherPoint,
+  weather: WeatherPoint | DailyWeatherPoint,
   timezone: string
 ): IHumanizedWeather => ({
-  time: format(utcToZonedTime(weather.dt * 1000, timezone), TIME_PATTERN),
-  temp: `${((weather.temp * 10) ^ 0) / 10} \u2103`,
+  time:
+    typeof weather.temp === 'number'
+      ? format(utcToZonedTime(weather.dt * 1000, timezone), TIME_PATTERN)
+      : format(utcToZonedTime(weather.dt * 1000, timezone), DATE_PATTERN),
+  temp:
+    typeof weather.temp === 'number'
+      ? `${round(weather.temp)} \u2103`
+      : `${round(weather.temp.min)} - ${round(weather.temp.max)} \u2103`,
   wind: `${weather.weather[0].description}, ${weather.wind_speed} meter per second`,
 });
 

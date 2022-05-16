@@ -12,7 +12,7 @@ interface Props {
 
 export const OneDayForecast = ({ title, forecast, date }: Props) => {
   const location = useGetLocation();
-  const weather = useSelector(getCurrentWeather);
+  const currentWeather = useSelector(getCurrentWeather);
 
   return (
     <div className={styles.container}>
@@ -34,7 +34,7 @@ export const OneDayForecast = ({ title, forecast, date }: Props) => {
         ))}
       </div>
       <div>
-        {location && weather && (
+        {location && currentWeather && (
           <Map
             width={600}
             height={400}
@@ -46,9 +46,8 @@ export const OneDayForecast = ({ title, forecast, date }: Props) => {
             <Placemark
               geometry={[location.latitude, location.longitude]}
               defaultProperties={{
-                balloonContentHeader: weather?.temp,
-                balloonContentBody: weather?.wind,
-                // balloonContent: 'Это балун',
+                balloonContentHeader: currentWeather?.temp,
+                balloonContentBody: currentWeather?.wind,
               }}
               modules={['geoObject.addon.balloon']}
             />

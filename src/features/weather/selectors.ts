@@ -6,14 +6,11 @@ import { humanizeWeather } from 'helpers';
 const getStore = (store: AppState) => store.weather;
 
 const getTimezone = createSelector(getStore, ({ timezone }) => timezone);
-const getOneDayForecast = createSelector(
-  getStore,
-  ({ oneDayForecast }) => oneDayForecast
-);
+const getForecast = createSelector(getStore, ({ forecast }) => forecast);
 
 export const getCurrentWeather = createSelector(
   getTimezone,
-  getOneDayForecast,
+  getForecast,
   (timezone, forecast) => {
     if (!timezone || !forecast) return null;
     return humanizeWeather(forecast.current, timezone);
@@ -22,7 +19,7 @@ export const getCurrentWeather = createSelector(
 
 export const getTodayForecast = createSelector(
   getTimezone,
-  getOneDayForecast,
+  getForecast,
   (timezone, forecast) => {
     if (!timezone || !forecast) return [];
     const candidates = forecast.hourly
@@ -37,7 +34,7 @@ export const getTodayForecast = createSelector(
 
 export const getTomorrowForecast = createSelector(
   getTimezone,
-  getOneDayForecast,
+  getForecast,
   (timezone, forecast) => {
     if (!timezone || !forecast) return [];
     const candidates = forecast.hourly
@@ -48,4 +45,13 @@ export const getTomorrowForecast = createSelector(
       ? candidates.filter((_, i) => i % 3 === 0)
       : candidates;
   }
+);
+
+export const getWeekForecast = createSelector(
+  getTimezone,
+  getForecast,
+  (timezone, forecast) =>
+    !timezone || !forecast
+      ? null
+      : forecast.daily.map((weather) => humanizeWeather(weather, timezone))
 );
