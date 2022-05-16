@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { utcToZonedTime, format } from 'date-fns-tz';
@@ -53,15 +53,18 @@ export const useGetLocation = () => {
   const currentLocation = useSelector(getCurrentLocation);
   let [searchParams] = useSearchParams();
 
-  const lat = searchParams.get('lat');
-  const lon = searchParams.get('lon');
+  const urlLocation = useMemo(() => {
+    const lat = searchParams.get('lat');
+    const lon = searchParams.get('lon');
+    if (!lat || !lon) return null;
 
-  return lat && lon
-    ? {
-        latitude: parseFloat(lat),
-        longitude: parseFloat(lon),
-      }
-    : currentLocation;
+    return {
+      latitude: parseFloat(lat),
+      longitude: parseFloat(lon),
+    };
+  }, [searchParams]);
+
+  return urlLocation ?? currentLocation;
 };
 
 const TIME_PATTERN = 'HH:mm';

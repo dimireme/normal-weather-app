@@ -1,3 +1,4 @@
+// import { api } from 'api';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -11,6 +12,10 @@ const MyInputCore = withYMaps(
       const suggestView = new ymaps.SuggestView('suggest');
       suggestView.events.add('select', (e: any) => {
         const { value } = e.get('item');
+        // TODO: use direct api and remove API_KEY from yMaps context provider
+        // api
+        //   .getLocationByCity(value)
+        //   .then((res) => ....));
         ymaps
           .geocode(value)
           .then(({ geoObjects }: any) => {
