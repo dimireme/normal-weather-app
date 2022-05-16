@@ -5,31 +5,40 @@ import {
   useValidateSearchParams,
   useGetCurrentLocation,
   useGetLocation,
+  todayDate,
+  tomorrowDate,
 } from 'helpers';
 import { WetherPreview } from 'components/WetherPreview';
 import { Home } from 'components/Home';
 import { Header } from 'components/Header';
-import { Today } from 'components/Today';
-import { Tomorrow } from 'components/Tomorrow';
+import { OneDayForecast } from 'components/OneDayForecast';
 import { Week } from 'components/Week';
 import { routes } from 'routes';
 import { useAppDispatch } from 'store';
-import { fetchTodayWeatherForecast } from 'features/weather/thunks';
+import { fetchOneDayForecast } from 'features/weather/thunks';
 import { fetchCityByLocation } from 'features/location/thunks';
 import { saveCity } from 'features/location/slice';
+import {
+  getTodayForecast,
+  getTomorrowForecast,
+} from 'features/weather/selectors';
+import { useSelector } from 'react-redux';
 
 function App() {
   useValidateSearchParams();
   useGetCurrentLocation();
   const location = useGetLocation();
   const dispatch = useAppDispatch();
+  const todayForecast = useSelector(getTodayForecast);
+  const tomorrowForecast = useSelector(getTomorrowForecast);
 
   useEffect(() => {
     if (!location) return;
-    dispatch(fetchTodayWeatherForecast({ location }));
+    dispatch(fetchOneDayForecast({ location }));
     dispatch(fetchCityByLocation({ location }));
   }, [location, dispatch]);
 
+  // TODO: Move down
   const handleSaveCity = useCallback(
     (city: string, description: string) => {
       dispatch(saveCity({ city, description, ...location! }));
@@ -44,9 +53,27 @@ function App() {
       <Routes>
         <Route path={routes.home} element={<Home />} />
 
-        <Route path={routes.today} element={<Today />} />
+        <Route
+          path={routes.today}
+          element={
+            <OneDayForecast
+              title="Today"
+              date={todayDate()}
+              forecast={todayForecast}
+            />
+          }
+        />
 
-        <Route path={routes.tomorrow} element={<Tomorrow />} />
+        <Route
+          path={routes.tomorrow}
+          element={
+            <OneDayForecast
+              title="Tomorrow"
+              date={tomorrowDate()}
+              forecast={tomorrowForecast}
+            />
+          }
+        />
 
         <Route path={routes.week} element={<Week />} />
       </Routes>

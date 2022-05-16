@@ -1,9 +1,43 @@
 import { createSelector } from 'reselect';
+import { isToday, isTomorrow } from 'date-fns';
 import { AppState } from 'store';
 import { humanizeWeather } from 'helpers';
 
 const getStore = (store: AppState) => store.weather;
 
-export const getCurrentWeather = createSelector(getStore, (store) =>
-  store.todayForecast ? humanizeWeather(store.todayForecast.current) : null
+const getTimezone = createSelector(getStore, ({ timezone }) => timezone);
+const getOneDayForecast = createSelector(
+  getStore,
+  ({ oneDayForecast }) => oneDayForecast
+);
+
+export const getCurrentWeather = createSelector(
+  getTimezone,
+  getOneDayForecast,
+  (timezone, forecast) => {
+    if (!timezone || !forecast) return null;
+    return humanizeWeather(forecast.current, timezone);
+  }
+);
+
+export const getTodayForecast = createSelector(
+  getTimezone,
+  getOneDayForecast,
+  (timezone, forecast) => {
+    if (!timezone || !forecast) return [];
+    return forecast.hourly
+      .filter(({ dt }) => isToday(dt * 1000))
+      .map((weather) => humanizeWeather(weather, timezone));
+  }
+);
+
+export const getTomorrowForecast = createSelector(
+  getTimezone,
+  getOneDayForecast,
+  (timezone, forecast) => {
+    if (!timezone || !forecast) return [];
+    return forecast.hourly
+      .filter(({ dt }) => isTomorrow(dt * 1000))
+      .map((weather) => humanizeWeather(weather, timezone));
+  }
 );

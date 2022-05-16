@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { GetForecastResponse } from 'api/types';
-import { fetchTodayWeatherForecast } from './thunks';
+import { fetchOneDayForecast } from './thunks';
 
 interface Store {
-  todayForecast?: GetForecastResponse;
+  oneDayForecast?: GetForecastResponse;
   timezone?: string;
 }
 
@@ -14,8 +14,8 @@ const Slice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchTodayWeatherForecast.fulfilled, (state, action) => {
-      state.todayForecast = action.payload;
+    builder.addCase(fetchOneDayForecast.fulfilled, (state, action) => {
+      state.oneDayForecast = action.payload;
       state.timezone = action.payload.timezone;
     });
   },

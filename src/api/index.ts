@@ -14,7 +14,7 @@ const YANDEX_API_URL = 'https://geocode-maps.yandex.ru/1.x';
 export const YANDEX_API_KEY = '2bd13122-dad8-405b-bcd7-4fae8ce6a0ea';
 
 export const api = {
-  getWeatherForecast({ location }: GetForecastRequest) {
+  getOneDayForecast({ location }: GetForecastRequest) {
     const { latitude, longitude } = location;
     const units = Units.Metric;
     const exclude = [ExcludeFields.Minutely, ExcludeFields.Daily].join(',');
@@ -34,11 +34,11 @@ export const api = {
       .then((response) => response.data);
   },
 
-  getCityByName(city: string) {
-    return axios
-      .get<GetGeocodingResponse>(
-        `${YANDEX_API_URL}?geocode=${city}&apikey=${YANDEX_API_KEY}&format=json&results=5&kind=locality`
-      )
-      .then((response) => response.data);
-  },
+  // getCityByName(city: string) {
+  //   return axios
+  //     .get<GetGeocodingResponse>(
+  //       `${YANDEX_API_URL}?geocode=${city}&apikey=${YANDEX_API_KEY}&format=json&results=5&kind=locality`
+  //     )
+  //     .then((response) => response.data);
+  // },
 };

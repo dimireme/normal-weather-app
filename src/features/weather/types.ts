@@ -43,3 +43,9 @@ interface Fallouts {
     '1h': number; // Snow volume, mm
   };
 }
+
+export interface IHumanizedWeather {
+  time: string;
+  temp: string;
+  wind: string;
+}

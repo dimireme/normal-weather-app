@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { utcToZonedTime, format } from 'date-fns-tz';
+import { startOfToday, startOfTomorrow } from 'date-fns';
+
 import { useAppDispatch } from 'store';
 import { setLocation } from 'features/location/slice';
-import { WeatherPoint } from 'features/weather/types';
+import { WeatherPoint, IHumanizedWeather } from 'features/weather/types';
 import { getCurrentLocation } from 'features/location/selectors';
 
 const isValidFloat = (n: string) => /^[+-]?[0-9]+[.][0-9]+/.test(n);
@@ -61,9 +64,18 @@ export const useGetLocation = () => {
     : currentLocation;
 };
 
+const TIME_PATTERN = 'HH:mm';
+const DATE_PATTERN = 'MMMM, d';
+
 // Строковое представление температуры и ветра.
-export const humanizeWeather = (weather: WeatherPoint) => ({
-  time: weather.dt,
-  temperature: `${((weather.temp * 10) ^ 0) / 10} \u2103`,
-  conditions: `${weather.weather[0].description}, ${weather.wind_speed} meter per second`,
+export const humanizeWeather = (
+  weather: WeatherPoint,
+  timezone: string
+): IHumanizedWeather => ({
+  time: format(utcToZonedTime(weather.dt * 1000, timezone), TIME_PATTERN),
+  temp: `${((weather.temp * 10) ^ 0) / 10} \u2103`,
+  wind: `${weather.weather[0].description}, ${weather.wind_speed} meter per second`,
 });
+
+export const todayDate = () => format(startOfToday(), DATE_PATTERN);
+export const tomorrowDate = () => format(startOfTomorrow(), DATE_PATTERN);

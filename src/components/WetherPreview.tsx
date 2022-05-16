@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const WetherPreview = ({ onSave }: Props) => {
-  const { temperature, conditions } = useSelector(getCurrentWeather) ?? {};
+  const { temp, wind } = useSelector(getCurrentWeather) ?? {};
   const { city, description } = useSelector(getCity);
 
   return (
@@ -22,11 +22,11 @@ export const WetherPreview = ({ onSave }: Props) => {
           <AddIcon />
         </button>
       )}
-      <span className={styles.temperature}>{temperature}</span>
+      <span className={styles.temperature}>{temp}</span>
       <span className={styles.city}>
         {city}, {description}
       </span>
-      <span className={styles.conditions}>{conditions}</span>
+      <span className={styles.conditions}>{wind}</span>
     </div>
   );
 };
