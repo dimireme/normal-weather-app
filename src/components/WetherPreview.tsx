@@ -5,7 +5,7 @@ import { ReactComponent as AddIcon } from './icons/AddIcon.svg';
 import styles from './WetherPreview.module.css';
 
 interface Props {
-  onSave: (city?: string, description?: string) => void;
+  onSave: (city: string, description: string) => void;
 }
 
 export const WetherPreview = ({ onSave }: Props) => {
@@ -14,12 +14,14 @@ export const WetherPreview = ({ onSave }: Props) => {
 
   return (
     <div className={styles.container}>
-      <button
-        className={styles.addButton}
-        onClick={() => onSave(city, description)}
-      >
-        <AddIcon />
-      </button>
+      {city && description && (
+        <button
+          className={styles.addButton}
+          onClick={() => onSave(city, description)}
+        >
+          <AddIcon />
+        </button>
+      )}
       <span className={styles.temperature}>{temperature}</span>
       <span className={styles.city}>
         {city}, {description}

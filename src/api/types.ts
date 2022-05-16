@@ -33,7 +33,7 @@ export interface GetCityByLocationRequest {
   location: LocationPoint;
 }
 
-export interface GetCityByLocationResponse {
+export interface GetGeocodingResponse {
   response: {
     GeoObjectCollection: {
       featureMember: { GeoObject: IGeoObject }[];

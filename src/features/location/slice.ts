@@ -41,6 +41,8 @@ const Slice = createSlice({
       toast.success('City removed from favorites');
     },
   },
+  // TODO: use yMaps HOC.
+  // TODO: Move yMaps logic to service.
   extraReducers: (builder) => {
     builder.addCase(fetchCityByLocation.fulfilled, (state, action) => {
       const { name, description } =

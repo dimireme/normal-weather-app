@@ -1,11 +1,10 @@
-import { useCallback, KeyboardEvent, useState } from 'react';
+import { useCallback } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-
 import { routes } from 'routes';
 import styles from './Header.module.css';
+import { AutocompleteInput } from './AutocompleteInput';
 
 export const Header = () => {
-  const [search, setSearch] = useState('');
   const location = useLocation();
 
   const activeClassName = useCallback(
@@ -13,11 +12,6 @@ export const Header = () => {
       isActive ? styles.active : undefined,
     []
   );
-
-  const handleSearch = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key !== 'Enter') return;
-    console.log('SEARCH!!!');
-  };
 
   return (
     <header className={styles.header}>
@@ -41,21 +35,7 @@ export const Header = () => {
           Week
         </NavLink>
       </nav>
-      <input
-        className={styles.search}
-        placeholder="Find city..."
-        type="text"
-        list="cities"
-        onKeyDown={handleSearch}
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <datalist id="cities">
-        <option value="JavaScript"></option>
-        <option value="Python"></option>
-        <option value="Java"></option>
-        <option value="HTML"></option>
-      </datalist>
+      <AutocompleteInput />
     </header>
   );
 };

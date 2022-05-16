@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
+import { YMaps } from 'react-yandex-maps';
 
 import { store } from 'store';
 import App from './App';
@@ -17,7 +18,14 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <YMaps
+          query={{
+            lang: 'en_RU',
+            apikey: '2bd13122-dad8-405b-bcd7-4fae8ce6a0ea',
+          }}
+        >
+          <App />
+        </YMaps>
         <ToastContainer position="bottom-right" />
       </Provider>
     </BrowserRouter>

@@ -31,9 +31,8 @@ function App() {
   }, [location, dispatch]);
 
   const handleSaveCity = useCallback(
-    (city?: string, description?: string) => {
-      if (!location) return;
-      dispatch(saveCity({ city, description, ...location }));
+    (city: string, description: string) => {
+      dispatch(saveCity({ city, description, ...location! }));
     },
     [location, dispatch]
   );
