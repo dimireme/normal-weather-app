@@ -2,6 +2,7 @@
   "name": "normal-weather-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://dimireme.github.io/normal-weather-app/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
     "@types/react": "^18.0.9",
