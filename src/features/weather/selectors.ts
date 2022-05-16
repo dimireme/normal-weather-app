@@ -25,9 +25,13 @@ export const getTodayForecast = createSelector(
   getOneDayForecast,
   (timezone, forecast) => {
     if (!timezone || !forecast) return [];
-    return forecast.hourly
+    const candidates = forecast.hourly
       .filter(({ dt }) => isToday(dt * 1000))
       .map((weather) => humanizeWeather(weather, timezone));
+
+    return candidates.length >= 8
+      ? candidates.filter((_, i) => i % 3 === 0)
+      : candidates;
   }
 );
 
@@ -36,8 +40,12 @@ export const getTomorrowForecast = createSelector(
   getOneDayForecast,
   (timezone, forecast) => {
     if (!timezone || !forecast) return [];
-    return forecast.hourly
+    const candidates = forecast.hourly
       .filter(({ dt }) => isTomorrow(dt * 1000))
       .map((weather) => humanizeWeather(weather, timezone));
+
+    return candidates.length >= 8
+      ? candidates.filter((_, i) => i % 3 === 0)
+      : candidates;
   }
 );
