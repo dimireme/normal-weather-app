@@ -13,6 +13,7 @@ import { Home } from 'components/Home';
 import { Header } from 'components/Header';
 import { OneDayForecast } from 'components/OneDayForecast';
 import { OneWeekForecast } from 'components/OneWeekForecast';
+import { NotFound } from 'components/NotFound';
 import { routes } from 'routes';
 import { useAppDispatch } from 'store';
 import { fetchForecast } from 'features/weather/thunks';
@@ -40,6 +41,8 @@ function App() {
       <Header />
       <WetherPreview />
       <Routes>
+        <Route path="*" element={<NotFound />} />
+
         <Route path={routes.home} element={<Home />} />
 
         <Route
