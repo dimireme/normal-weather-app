@@ -1,6 +1,6 @@
 export const routes = {
-  home: '/',
-  today: '/today',
-  tomorrow: '/tomorrow',
-  week: '/week',
+  home: '/normal-weather-app/',
+  today: '/normal-weather-app/today',
+  tomorrow: '/normal-weather-app/tomorrow',
+  week: '/normal-weather-app/week',
 };
