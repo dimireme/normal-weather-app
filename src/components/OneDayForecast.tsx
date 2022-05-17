@@ -4,6 +4,7 @@ import { getCurrentWeather } from 'features/weather/selectors';
 import { IHumanizedWeather } from 'features/weather/types';
 import { useGetLocation } from 'helpers';
 import styles from './OneDayForecast.module.css';
+
 interface Props {
   title: string;
   forecast: IHumanizedWeather[];

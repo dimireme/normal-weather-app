@@ -4,7 +4,8 @@ import styles from './OneWeekForecast.module.css';
 
 export const OneWeekForecast = () => {
   const forecast = useSelector(getWeekForecast);
-  return forecast ? (
+
+  return !forecast ? null : (
     <div className="page">
       <h2>Week</h2>
       <h3 className={styles.date}>
@@ -23,5 +24,5 @@ export const OneWeekForecast = () => {
         ))}
       </div>
     </div>
-  ) : null;
+  );
 };

@@ -3,10 +3,10 @@ import { getSavedCities } from 'features/location/selectors';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { routes } from 'routes';
+import { useAppDispatch } from 'store';
 import { removeCity } from 'features/location/slice';
 import { ReactComponent as RemoveIcon } from './icons/RemoveIcon.svg';
 import styles from './Home.module.css';
-import { useAppDispatch } from 'store';
 
 export const Home = () => {
   const dispatch = useAppDispatch();

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
 import {
@@ -21,7 +22,6 @@ import {
   getTodayForecast,
   getTomorrowForecast,
 } from 'features/weather/selectors';
-import { useSelector } from 'react-redux';
 
 function App() {
   useValidateSearchParams();

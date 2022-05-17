@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { getCurrentWeather } from 'features/weather/selectors';
+import { api } from 'api';
 import { useAppDispatch } from 'store';
+import { getCurrentWeather } from 'features/weather/selectors';
 import { saveCity } from 'features/location/slice';
 import { useGetLocation } from 'helpers';
 import { ReactComponent as AddIcon } from './icons/AddIcon.svg';
 import styles from './WetherPreview.module.css';
-import { useEffect } from 'react';
-import { api } from 'api';
 
 export const WetherPreview = () => {
   const dispatch = useAppDispatch();
