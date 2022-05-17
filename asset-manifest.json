@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/normal-weather-app/static/css/main.5c12a092.css",
-    "main.js": "/normal-weather-app/static/js/main.69a7f486.js",
+    "main.css": "/normal-weather-app/static/css/main.eabd23e0.css",
+    "main.js": "/normal-weather-app/static/js/main.faae317e.js",
     "static/media/RemoveIcon.svg": "/normal-weather-app/static/media/RemoveIcon.1365c6bedbfd2f9b16934397af1a4c98.svg",
     "index.html": "/normal-weather-app/index.html",
     "static/media/AddIcon.svg": "/normal-weather-app/static/media/AddIcon.bbe7c08e5db797078c1e238c8cd7cbcf.svg",
-    "main.5c12a092.css.map": "/normal-weather-app/static/css/main.5c12a092.css.map",
-    "main.69a7f486.js.map": "/normal-weather-app/static/js/main.69a7f486.js.map"
+    "main.eabd23e0.css.map": "/normal-weather-app/static/css/main.eabd23e0.css.map",
+    "main.faae317e.js.map": "/normal-weather-app/static/js/main.faae317e.js.map"
   },
   "entrypoints": [
-    "static/css/main.5c12a092.css",
-    "static/js/main.69a7f486.js"
+    "static/css/main.eabd23e0.css",
+    "static/js/main.faae317e.js"
   ]
 }
