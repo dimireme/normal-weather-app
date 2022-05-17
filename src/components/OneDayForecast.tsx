@@ -35,11 +35,11 @@ export const OneDayForecast = ({ title, forecast, date }: Props) => {
         ))}
       </div>
       <div>
-        {location && currentWeather && (
+        {location && (
           <Map
             width={600}
             height={400}
-            defaultState={{
+            state={{
               center: [location.latitude, location.longitude],
               zoom: 9,
             }}
@@ -47,7 +47,7 @@ export const OneDayForecast = ({ title, forecast, date }: Props) => {
             <Placemark
               geometry={[location.latitude, location.longitude]}
               defaultProperties={{
-                balloonContentHeader: currentWeather?.temp,
+                balloonContentHeader: currentWeather?.temp ?? 'No data',
                 balloonContentBody: currentWeather?.wind,
               }}
               modules={['geoObject.addon.balloon']}
