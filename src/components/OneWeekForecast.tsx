@@ -5,7 +5,7 @@ import styles from './OneWeekForecast.module.css';
 export const OneWeekForecast = () => {
   const forecast = useSelector(getWeekForecast);
   return forecast ? (
-    <div className={styles.container}>
+    <div className="page">
       <h2>Week</h2>
       <h3 className={styles.date}>
         {forecast[0].time} - {forecast[forecast.length - 1].time}

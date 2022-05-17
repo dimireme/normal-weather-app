@@ -19,7 +19,7 @@ export const Home = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`page ${styles.container}`}>
       <h2 className={styles.header}>Saved cities</h2>
       {savedCities.length === 0 ? (
         <p>No saved cities.</p>

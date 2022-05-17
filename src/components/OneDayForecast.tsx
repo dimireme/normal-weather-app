@@ -15,7 +15,7 @@ export const OneDayForecast = ({ title, forecast, date }: Props) => {
   const currentWeather = useSelector(getCurrentWeather);
 
   return (
-    <div className={styles.container}>
+    <div className={`page ${styles.container}`}>
       <div>
         <h2>{title}</h2>
         <h3 className={styles.date}>{date}</h3>

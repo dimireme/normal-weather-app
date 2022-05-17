@@ -24,3 +24,10 @@ body,
 #root {
     min-height: 100vh;
 }
+
+.page {
+    padding: 32px;
+    max-width: 1200px; 
+    min-width: 668px;
+    margin: 0 auto;
+}

@@ -21,7 +21,7 @@
 
 .nav a.active {
   font-weight: bold;
-  text-decoration: underline;
+  border-bottom: 2px solid var(--main-color);
 }
 
 .nav a:hover {
