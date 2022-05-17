@@ -41,12 +41,13 @@ export interface GetCityByLocationRequest {
 export interface GetGeocodingResponse {
   response: {
     GeoObjectCollection: {
-      featureMember: { GeoObject: IGeoObject }[];
+      featureMember: { GeoObject: GeoObject }[];
     };
   };
 }
 
-interface IGeoObject {
+export interface GeoObject {
   name: string;
   description: string;
+  Point: { pos: string };
 }

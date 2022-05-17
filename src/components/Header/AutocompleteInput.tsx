@@ -1,8 +1,7 @@
-// import { api } from 'api';
 import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { withYMaps, WithYMapsProps } from 'react-yandex-maps';
+import { geocodingService } from 'features/geocoderService';
+import { useSearchParams } from 'react-router-dom';
 
 const MyInputCore = withYMaps(
   ({ ymaps }: WithYMapsProps) => {
@@ -12,22 +11,12 @@ const MyInputCore = withYMaps(
       const suggestView = new ymaps.SuggestView('suggest');
       suggestView.events.add('select', (e: any) => {
         const { value } = e.get('item');
-        // TODO: use direct api and remove API_KEY from yMaps context provider
-        // api
-        //   .getLocationByCity(value)
-        //   .then((res) => ....));
-        ymaps
-          .geocode(value)
-          .then(({ geoObjects }: any) => {
-            const location = geoObjects.get(0).geometry.getCoordinates();
-            if (location?.length !== 2) throw new Error();
-            searchParams.set('lat', location[0]);
-            searchParams.set('lon', location[1]);
-            setSearchParams(searchParams);
-          })
-          .catch(() => {
-            toast.error("Can't get location of selected city.");
-          });
+        geocodingService.getCoordinatesByCity(value).then((city) => {
+          if (!city) return;
+          searchParams.set('lat', city.latitude.toString());
+          searchParams.set('lon', city.longitude.toString());
+          setSearchParams(searchParams);
+        });
       });
 
       return () => {
@@ -46,7 +35,7 @@ const MyInputCore = withYMaps(
     );
   },
   true,
-  ['SuggestView', 'geocode']
+  ['SuggestView']
 );
 
 // Костыль из-за кривой типизации хока withYMaps

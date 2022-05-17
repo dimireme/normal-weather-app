@@ -3,8 +3,11 @@ export interface LocationPoint {
   longitude: number;
 }
 
-export interface SavedCity extends LocationPoint {
+export interface City extends LocationPoint {
+  name: string;
+  description: string;
+}
+
+export interface SavedCity extends City {
   id: string;
-  city?: string;
-  description?: string;
 }

@@ -22,10 +22,10 @@ export const Home = () => {
     <div className={`page ${styles.container}`}>
       <h2 className={styles.header}>Saved cities</h2>
       {savedCities.length === 0 ? (
-        <p>No saved cities.</p>
+        <p>No saved cities</p>
       ) : (
         <div className={styles.cityCards}>
-          {savedCities.map(({ id, city, description, latitude, longitude }) => (
+          {savedCities.map(({ id, name, description, latitude, longitude }) => (
             <div
               className={styles.cityCard}
               key={id}
@@ -39,7 +39,7 @@ export const Home = () => {
               >
                 <RemoveIcon />
               </button>
-              <span className={styles.cityTitle}>{city}</span>
+              <span className={styles.cityTitle}>{name}</span>
               <span>{description}</span>
             </div>
           ))}

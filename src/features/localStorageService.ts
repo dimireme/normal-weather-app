@@ -1,6 +1,6 @@
 import { SavedCity } from './location/types';
 
-const SAVED_CITIES_KEY = 'cities';
+const SAVED_CITIES_KEY = 'citiesV2';
 
 export const localStorageService = {
   getSavedCities: function (): SavedCity[] {
